@@ -1702,6 +1702,14 @@ $('#cc-kinds').replaceChildren(...Object.keys(KINDS).map(k=>{const b=document.cr
 $$('.dd').forEach(dd=>{const b=dd.firstElementChild;b.onclick=()=>b.setAttribute('aria-expanded',dd.classList.toggle('open'));dd.onmouseenter=()=>dd.classList.remove('shut');dd.addEventListener('focusin',e=>{if(!dd.contains(e.relatedTarget)&&e.target===b)dd.classList.remove('shut')});
  dd.querySelectorAll('.menu button[data-v]').forEach(m=>m.onclick=()=>{dd.classList.remove('open');dd.classList.add('shut');b.setAttribute('aria-expanded',false);m.blur();if(document.activeElement&&dd.contains(document.activeElement))document.activeElement.blur();location.hash='#'+m.dataset.v})});
 document.addEventListener('click',e=>$$('.dd').forEach(dd=>{if(!dd.contains(e.target)){dd.classList.remove('open');dd.firstElementChild.setAttribute('aria-expanded',false)}}));
+(()=>{
+ const header=$('.bar'),toggle=$('#nav-toggle');
+ const close=returnFocus=>{header.classList.remove('nav-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open navigation menu');if(returnFocus)toggle.focus()};
+ toggle.addEventListener('click',()=>{const open=header.classList.toggle('nav-open');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu')});
+ header.addEventListener('click',e=>{if(e.target.closest('.brand,#navacct,#main-nav button[data-v]'))close(false)});
+ document.addEventListener('click',e=>{if(header.classList.contains('nav-open')&&!header.contains(e.target))close(false)});
+ document.addEventListener('keydown',e=>{if(e.key=='Escape'&&header.classList.contains('nav-open'))close(true)});
+})();
 
 /* ---------- log in / sign up (browser-only demo accounts) ---------- */
 const AC={users:()=>{try{return JSON.parse(localStorage.getItem('ms-users')||'{}')}catch(e){return{}}},save:u=>localStorage.setItem('ms-users',JSON.stringify(u)),cur:()=>{try{return localStorage.getItem('ms-session')||''}catch(e){return''}}};
@@ -1819,14 +1827,14 @@ function initMusicPlayer(){
  };
  if(!MUSIC_TRACKS.length)return;
  play.disabled=prev.disabled=next.disabled=seek.disabled=false;
- loadTrack(0,true);
+ loadTrack(0,false);
  play.addEventListener('click',()=>{if(audio.paused)audio.play().catch(()=>{status.textContent='Playback could not start. Check the audio file and try again.'});else audio.pause()});
  prev.addEventListener('click',()=>loadTrack(trackIndex-1,!audio.paused));
  next.addEventListener('click',()=>loadTrack(trackIndex+1,!audio.paused));
  audio.addEventListener('play',()=>{updatePlay();status.textContent='Now playing'});
  audio.addEventListener('pause',()=>{updatePlay();if(!audio.ended&&audio.currentTime>0)status.textContent='Paused'});
  audio.addEventListener('ended',()=>loadTrack(trackIndex+1,true));
- audio.addEventListener('loadedmetadata',()=>{duration.textContent=clock(audio.duration)});
+ audio.addEventListener('loadedmetadata',()=>{duration.textContent=clock(audio.duration);if(audio.paused)status.textContent='Tap play to start playback'});
  audio.addEventListener('timeupdate',()=>{current.textContent=clock(audio.currentTime);if(Number.isFinite(audio.duration)&&audio.duration>0)seek.value=String(Math.round(audio.currentTime/audio.duration*1000))});
  audio.addEventListener('error',()=>{status.textContent='Could not load this track. Check its file path and format.'});
  seek.addEventListener('input',()=>{if(Number.isFinite(audio.duration)&&audio.duration>0)audio.currentTime=Number(seek.value)/1000*audio.duration});
@@ -1865,7 +1873,7 @@ function onRaveExit(){ // fade out Hardgroove 1 and give the website player back
  if(a){let v=a.volume;const id=setInterval(()=>{v-=.1;if(v<=0){clearInterval(id);a.pause();try{A.ctx&&A.ctx.close()}catch(e){}A.ctx=A.f1=A.f2=A.gain=null}else a.volume=Math.max(0,v)},40);if(A.gain)try{A.gain.gain.setTargetAtTime(0,A.ctx.currentTime,.1)}catch(e){}}
  const sa=$('#music-audio');if(sa&&A.siteWas)sa.play().catch(()=>{})}
 
-/* ---------- enter splash: doors open onto the home page and the music starts ---------- */
+/* ---------- enter splash: doors open onto the home page ---------- */
 function initSplash(){
  const sp=$('#splash');if(!sp)return;
  let seen=false;try{seen=sessionStorage.getItem('ms-entered')=='1'}catch(e){}
@@ -1884,7 +1892,6 @@ function initSplash(){
  let done=false;
  const enter=()=>{if(done)return;done=true;
   try{sessionStorage.setItem('ms-entered','1')}catch(e){}
-  const a=$('#music-audio');if(a&&MUSIC_TRACKS.length){const p=a.play();if(p&&p.catch)p.catch(()=>{})}
   sp.classList.add('open');
   const fin=()=>{sp.remove();document.documentElement.classList.remove('splash-on');removeEventListener('resize',fit)};
   setTimeout(fin,1400)};

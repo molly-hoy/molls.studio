@@ -41,13 +41,14 @@
 <!-- SITE HEADER: brand identity and navigation controls. -->
 <header class="bar">
   <a class="brand" href="#home" aria-label="Moll’s Studio, home"><svg class="stk"  viewBox="0 0 100 100" aria-hidden="true"><use href="#s-smile"/></svg><span class="brand-name" aria-hidden="true">M<img class="o-spin" src="images/smiley.png" alt="">LL’S STUDI<img class="o-spin" src="images/smiley.png" alt=""></span></a>
-  <div class="acct"><button data-v="account" id="navacct">Log in</button></div>
-  <nav aria-label="Main"><button data-v="home">Home</button><button data-v="shop">Shop</button>
+  <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-controls="main-nav" aria-expanded="false"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
+  <nav id="main-nav" aria-label="Main"><button data-v="home">Home</button><button data-v="shop">Shop</button>
     <div class="dd" data-k="patterns"><button aria-haspopup="true" aria-expanded="false">Patterns ▾</button><div class="menu"><div id="menuP"></div></div></div>
     <div class="dd" data-k="charts"><button aria-haspopup="true" aria-expanded="false">Charts ▾</button><div class="menu"><div id="menuC"></div></div></div>
     <div class="dd" data-k="tools"><button aria-haspopup="true" aria-expanded="false">Tools ▾</button><div class="menu"><div id="menuT"></div></div></div>
     <button data-v="community">Community</button><button data-v="spin">Inspire me ✦</button>
-    <div class="dd" data-k="mine"><button type="button" aria-haspopup="true" aria-expanded="false">My stuff ▾</button><div class="menu"><div id="menuM"></div></div></div></nav>
+    <div class="dd" data-k="mine"><button type="button" aria-haspopup="true" aria-expanded="false">My stuff ▾</button><div class="menu"><div id="menuM"></div></div></div>
+    <div class="acct"><button data-v="account" id="navacct">Log in</button></div></nav>
 </header>
 <div class="inf" aria-hidden="true"><span>Moll’s Studio · knit + crochet inspiration</span><span>Now showing: <b id="infs">Home</b></span><span>Free entry · open all hours</span></div>
 <!-- MAIN CONTENT: each section below is shown/hidden by the JavaScript router. -->
