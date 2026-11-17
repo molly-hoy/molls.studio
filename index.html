@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Moll’s Studio: patterns, posts and chart makers</title>
+<link rel="icon" type="image/png" href="images/smiley.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Fredoka:wght@400;500;600;700&family=Caveat:wght@600;700&family=Permanent+Marker&family=Anton&family=Unbounded:wght@700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Zen+Dots&family=Rubik+Glitch&family=Syne:wght@800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body data-t="home">
+<!-- ENTER SPLASH: two doors that open onto the home page. Built by script.js (initSplash). -->
+<div id="splash" role="dialog" aria-modal="true" aria-label="Welcome to Moll’s Studio" hidden>
+  <div class="sd sd-l" aria-hidden="true"></div>
+  <div class="sd sd-r" aria-hidden="true"></div>
+  <button type="button" id="splash-enter" class="sd-btn">ENTER ♥</button>
+</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<linearGradient id="g-heart" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc6e2"/><stop offset=".45" stop-color="#ff5cad"/><stop offset="1" stop-color="#d1308a"/></linearGradient>
+<linearGradient id="g-chrome" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".3" stop-color="#d9d6e3"/><stop offset=".55" stop-color="#8f8a9e"/><stop offset=".78" stop-color="#f3f1f9"/><stop offset="1" stop-color="#a39fb3"/></linearGradient>
+<radialGradient id="g-cherry" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffb0bf"/><stop offset=".55" stop-color="#ee2d5c"/><stop offset="1" stop-color="#8e1630"/></radialGradient>
+<radialGradient id="g-ball" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffc0dc"/><stop offset=".5" stop-color="#ff5cad"/><stop offset="1" stop-color="#c22a80"/></radialGradient>
+<radialGradient id="g-disco" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#1b1022" stop-opacity=".35"/></radialGradient>
+<filter id="rough" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter><filter id="rough2" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".06" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter><clipPath id="c-disco"><circle cx="50" cy="52" r="42"/></clipPath>
+</defs>
+<symbol id="s-heart" viewBox="0 0 100 100"><path d="M50 90C16 64 4 42 13 25 23 8 44 12 50 29 56 12 77 8 87 25 96 42 84 64 50 90Z" fill="url(#g-heart)" stroke="#1b1022" stroke-width="3"/><path d="M21 29C25 19 38 18 44 28" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="5" stroke-linecap="round"/><ellipse cx="74" cy="35" rx="5" ry="3" fill="#fff" fill-opacity=".6" transform="rotate(-30 74 35)"/></symbol>
+<symbol id="s-star" viewBox="0 0 100 100"><image href="images/star-chrome.png" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/></symbol>
+<symbol id="s-disco" viewBox="0 0 100 100"><image href="images/disco-ball.png" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/></symbol>
+<symbol id="s-cherry" viewBox="0 0 100 100"><image href="images/cherries.png" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/></symbol>
+<symbol id="s-burst" viewBox="0 0 100 100"><polygon points="50.0,3.0 55.1,27.6 65.6,17.6 63.7,32.8 84.4,22.6 68.9,40.9 82.2,42.7 75.0,50.0 96.8,60.7 71.6,60.4 79.7,73.7 64.3,68.0 68.7,88.7 54.9,71.4 50.0,85.0 45.3,70.5 30.0,91.4 34.4,69.5 23.4,71.2 28.4,60.4 4.2,60.5 27.0,50.0 14.9,42.0 30.2,40.5 15.6,22.6 36.9,33.6 35.7,20.3 44.4,25.6" fill="currentColor" stroke="#1b1022" stroke-width="2.5" stroke-linejoin="round"/></symbol>
+<symbol id="s-ball" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="url(#g-ball)" stroke="#1b1022" stroke-width="3"/><circle cx="50" cy="46" r="18" fill="#fff" stroke="#1b1022" stroke-width="2"/><text x="50" y="55" text-anchor="middle" font-family="Baloo 2,Fredoka,sans-serif" font-weight="800" font-size="26" fill="#1b1022">7</text><ellipse cx="30" cy="26" rx="9" ry="5" fill="#fff" fill-opacity=".7" transform="rotate(-35 30 26)"/></symbol>
+<symbol id="s-smile" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#ffe552" stroke="#1b1022" stroke-width="3.5"/><path d="M18 36C24 20 38 12 52 12" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="5" stroke-linecap="round"/><ellipse cx="36" cy="40" rx="5.5" ry="9" fill="#1b1022"/><ellipse cx="64" cy="40" rx="5.5" ry="9" fill="#1b1022"/><circle cx="25" cy="58" r="7" fill="#ff9acb" opacity=".85"/><circle cx="75" cy="58" r="7" fill="#ff9acb" opacity=".85"/><path d="M28 58C36 80 64 80 72 58" fill="none" stroke="#1b1022" stroke-width="4.5" stroke-linecap="round"/></symbol>
+<symbol id="s-lips" viewBox="0 0 100 100"><path d="M6 52C18 28 38 26 50 38 62 26 82 28 94 52 82 76 62 82 50 82 38 82 18 76 6 52Z" fill="#ff4d9f" stroke="#1b1022" stroke-width="3" stroke-linejoin="round"/><path d="M8 52C30 60 70 60 92 52" fill="none" stroke="#1b1022" stroke-width="3" stroke-linecap="round"/><ellipse cx="36" cy="42" rx="9" ry="3.5" fill="#fff" fill-opacity=".7" transform="rotate(-12 36 42)"/></symbol>
+<symbol id="s-flower" viewBox="0 0 100 100"><ellipse cx="50" cy="22" rx="11" ry="19" fill="#ff9acb" stroke="#1b1022" stroke-width="2.5" transform="rotate(0 50 50)"/><ellipse cx="50" cy="22" rx="11" ry="19" fill="#ff9acb" stroke="#1b1022" stroke-width="2.5" transform="rotate(45 50 50)"/><ellipse cx="50" cy="22" rx="11" ry="19" fill="#ff9acb" stroke="#1b1022" stroke-width="2.5" transform="rotate(90 50 50)"/><ellipse cx="50" cy="22" rx="11" ry="19" fill="#ff9acb" stroke="#1b1022" stroke-width="2.5" transform="rotate(135 50 50)"/><ellipse cx="50" cy="22" rx="11" ry="19" fill="#ff9acb" stroke="#1b1022" stroke-width="2.5" transform="rotate(180 50 50)"/><ellipse cx="50" cy="22" rx="11" ry="19" fill="#ff9acb" stroke="#1b1022" stroke-width="2.5" transform="rotate(225 50 50)"/><ellipse cx="50" cy="22" rx="11" ry="19" fill="#ff9acb" stroke="#1b1022" stroke-width="2.5" transform="rotate(270 50 50)"/><ellipse cx="50" cy="22" rx="11" ry="19" fill="#ff9acb" stroke="#1b1022" stroke-width="2.5" transform="rotate(315 50 50)"/><circle cx="50" cy="50" r="13" fill="#ffe552" stroke="#1b1022" stroke-width="2.5"/></symbol>
+<symbol id="s-spark" viewBox="0 0 100 100"><path d="M50 2C54 34 66 46 98 50 66 54 54 66 50 98 46 66 34 54 2 50 34 46 46 34 50 2Z" fill="currentColor" stroke="#1b1022" stroke-width="2.5" stroke-linejoin="round"/></symbol>
+<symbol id="s-arrow" viewBox="0 0 100 60"><path d="M4 52C22 10 60 6 90 30" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M68 14L92 30 66 40" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+<div class="tick" aria-hidden="true"><div class="osd"><i>▶</i>PLAY <em id="tc">0:00:00</em></div><span><b>welcome to moll’s studio ♥</b><b>design it · create it · wear it</b><b>new: written instructions</b><b>colourwork · cable · lace · texture</b><b>best viewed with yarn in hand ☺</b><b>free chart maker ★</b><b>welcome to moll’s studio ♥</b><b>design it · create it · wear it</b><b>new: written instructions</b><b>colourwork · cable · lace · texture</b><b>best viewed with yarn in hand ☺</b><b>free chart maker ★</b></span></div>
+<!-- SITE HEADER: brand identity and navigation controls. -->
+<header class="bar">
+  <a class="brand" href="#home" aria-label="Moll’s Studio, home"><svg class="stk"  viewBox="0 0 100 100" aria-hidden="true"><use href="#s-smile"/></svg><span class="brand-name" aria-hidden="true">M<img class="o-spin" src="images/smiley.png" alt="">LL’S STUDI<img class="o-spin" src="images/smiley.png" alt=""></span></a>
+  <div class="acct"><button data-v="account" id="navacct">Log in</button></div>
+  <nav aria-label="Main"><button data-v="home">Home</button><button data-v="shop">Shop</button>
+    <div class="dd" data-k="patterns"><button aria-haspopup="true" aria-expanded="false">Patterns ▾</button><div class="menu"><div id="menuP"></div></div></div>
+    <div class="dd" data-k="charts"><button aria-haspopup="true" aria-expanded="false">Charts ▾</button><div class="menu"><div id="menuC"></div></div></div>
+    <div class="dd" data-k="tools"><button aria-haspopup="true" aria-expanded="false">Tools ▾</button><div class="menu"><div id="menuT"></div></div></div>
+    <button data-v="community">Community</button><button data-v="spin">Inspire me ✦</button>
+    <div class="dd" data-k="mine"><button type="button" aria-haspopup="true" aria-expanded="false">My stuff ▾</button><div class="menu"><div id="menuM"></div></div></div></nav>
+</header>
+<div class="inf" aria-hidden="true"><span>Moll’s Studio · knit + crochet inspiration</span><span>Now showing: <b id="infs">Home</b></span><span>Free entry · open all hours</span></div>
+<!-- MAIN CONTENT: each section below is shown/hidden by the JavaScript router. -->
+<main>
+<!-- HOME: landing page, feature previews and getting-started content. -->
+<section id="home" hidden>
+  <div class="hero">
+    <div class="hl">
+      <h1 class="home-title">M<img class="o-spin" src="images/smiley.png" alt="">LL’S STUDI<img class="o-spin" src="images/smiley.png" alt=""></h1>
+      <div class="note n3 hnote"><div class="paper t1"><p class="lead">Knitting patterns, studio posts and a free chart maker for crafty people. Pull up a chair, make a chart and stay a while.</p></div></div>
+      <p class="hm-chip">★ 100% free · no subscriptions · made by Moll</p>
+      <div class="cta"><button class="pri" data-go="colourwork">Create new chart ♥</button><button class="pri mintb" data-go="patterns">Browse patterns</button><button class="pri" data-go="spin" style="background:#ffe552">Stuck in a rut? Spin!</button></div>
+    </div>
+    <div class="collage"><div class="leo" style="left:3%;top:5%;width:78%;height:70%;transform:rotate(3deg)"></div><div class="polaroid" style="left:17%;top:15%;width:50%"><canvas id="hero" aria-label="Cherries in knitted stitches"></canvas><span class="hand">cherry on top ♥</span></div><svg class="stk" style="right:-3%;top:20%;width:38%;transform:rotate(12deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-smile"/></svg><svg class="stk" style="left:-4%;top:-5%;width:38%;transform:rotate(-10deg);color:#c4ff2e" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-burst"/><text x="50" y="46" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="16" fill="#1b1022">FREE</text><text x="50" y="62" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="12" fill="#1b1022">charts!</text></svg><svg class="stk" style="right:6%;top:-5%;width:22%;transform:rotate(14deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg><svg class="stk" style="left:-3%;top:44%;width:28%;transform:rotate(-10deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-heart"/></svg><svg class="stk" style="right:12%;top:62%;width:22%;transform:rotate(8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-lips"/></svg><svg class="stk" style="left:42%;top:70%;width:27%;transform:rotate(6deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-disco"/></svg><svg class="stk" style="left:22%;top:78%;width:21%;transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-cherry"/></svg><svg class="stk" style="left:62%;top:2%;width:14%;transform:rotate(10deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-flower"/></svg><svg class="stk" style="right:0%;top:80%;width:15%;transform:rotate(-6deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-ball"/></svg><svg class="stk" style="left:74%;top:50%;width:9%;color:#fff3a8" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-spark"/></svg><svg class="stk" style="left:50%;top:-2%;width:7%;color:#c9fbff" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-spark"/></svg><div class="scrap hand" style="left:-3%;top:66%;transform:rotate(-5deg)">design it · create it · wear it</div></div>
+  </div>
+  <!-- HOME: free ticker, Moll's vision, everything that's free, beginners, save/edit/export (see the "home page: Moll's vision" sections in style.css and script.js) -->
+  <div class="hm-ticker" aria-hidden="true"><span>FREE CHART MAKERS ♥ CHART ON A BEANIE OR TOTE ♥ FREE PATTERNS ♥ US + UK TERMS ♥ FREE CALCULATORS ♥ SAVE YOUR DESIGNS ♥ EXPORT FOR FREE ♥ NO SUBSCRIPTIONS ♥ NO PAYWALLS ♥ MADE BY MOLL ♥ FREE CHART MAKERS ♥ CHART ON A BEANIE OR TOTE ♥ FREE PATTERNS ♥ US + UK TERMS ♥ FREE CALCULATORS ♥ SAVE YOUR DESIGNS ♥ EXPORT FOR FREE ♥ NO SUBSCRIPTIONS ♥ NO PAYWALLS ♥ MADE BY MOLL ♥ </span></div>
+
+  <div class="hm-vision" id="hm-vision">
+    <div class="note n1"><div class="paper t1 hm-vtext">
+      <p class="hm-kicker">Moll’s vision ♥</p>
+      <h2 class="hm-big">Every crafting tool you need, in one place. Free.</h2>
+      <p>Hi, I’m Moll. I built this studio because crafting shouldn’t cost a fortune before you’ve even cast on. Every tool I wished I had is here: chart makers, patterns, calculators and trackers. Save your designs, come back to them whenever you like, edit them and export them. No subscriptions, no paywalls, no “upgrade to pro”.</p>
+      <p>Whether you’re picking up your needles or hook for the very first time, or finding your way back to a craft you fell out of love with, you’re welcome here.</p>
+      <div class="cta"><button class="pri" type="button" data-scroll="hm-free">See everything that’s free ↓</button><button class="pri mintb" type="button" data-scroll="hm-begin">I’m a beginner ✿</button></div>
+    </div></div>
+    <div class="hm-stats">
+      <div class="hm-stat s1"><b id="hm-n-tools">14</b><span>free tools</span></div>
+      <div class="hm-stat s2"><b id="hm-n-pat">5</b><span>free patterns</span></div>
+      <div class="hm-stat s3"><b id="hm-n-chart">6</b><span>ready-made charts</span></div>
+      <div class="hm-stat s4"><b>£0</b><span>to use, always</span></div>
+    </div>
+  </div>
+
+  <h2 class="hl2" id="hm-free">Everything here is free <svg class="stk inl" style="width:50px;transform:rotate(10deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg></h2>
+  <p class="lead hm-sub">Tap any of these to try it. No sign-up needed.</p>
+  <div class="hm-tools" id="hm-tools">
+    <button class="hm-tool c1" type="button" data-go="colourwork"><span class="fm" data-mini="chart:2"></span><b>Colourwork chart maker</b><span>Paint stitches in your own colours and see a knitted preview as you go.</span><i>Try it →</i></button>
+    <button class="hm-tool c2" type="button" data-go="cable"><span class="fm" data-mini="chart:6"></span><b>Cable chart maker</b><span>Place cable crosses like C2F and C4B and get the written rows.</span><i>Try it →</i></button>
+    <button class="hm-tool c3" type="button" data-go="lace"><span class="fm" data-mini="chart:7"></span><b>Lace chart maker</b><span>Yarn overs and decreases with proper lace symbols.</span><i>Try it →</i></button>
+    <button class="hm-tool c4" type="button" data-go="textured"><span class="fm" data-mini="chart:9"></span><b>Textured stitch chart maker</b><span>Ribs, seed stitch and basket weave, charted for you.</span><i>Try it →</i></button>
+    <button class="hm-tool c5" type="button" data-go="charts"><span class="fm" data-mini="ready:Smiley"></span><b>Ready-made charts</b><span>Cherries, hearts, leopard print, smileys and more. Open one and make it yours.</span><i>Browse →</i></button>
+    <button class="hm-tool c1" type="button" data-go="garment"><span class="fm photo"><img src="images/garments/beanie.jpg" alt="" loading="lazy"></span><b>Chart on a garment</b><span>See your colour chart on a beanie or tote bag, then get a written pattern for it, in the round or flat. Saved in My garments.</span><i>Try it →</i></button>
+    <button class="hm-tool c6" type="button" data-go="patterns"><span class="fm photo"><img src="images/cat-hat.jpg" alt="" loading="lazy"></span><b>Free patterns</b><span>Real step-by-step knit and crochet patterns, with a PDF to keep. Switch between US and UK terms with one tap.</span><i>Browse →</i></button>
+    <button class="hm-tool c1" type="button" data-go="pattern-maker"><span class="fm hm-mpaper"><em>Your pattern</em><small>Materials · Gauge · Rows 1–12 · Photos</small><small class="tag">PNG · PDF</small></span><b>Pattern maker</b><span>Write up your own pattern with photos and export a PNG or PDF. Tick off every row as you knit it.</span><i>Try it →</i></button>
+    <button class="hm-tool c2" type="button" data-go="beanie"><span class="fm hm-beanie"><img src="images/classic-beanie.png" alt="" loading="lazy"></span><b>Beanie pattern generator</b><span>Pick a size, yarn and crown. The stitch counts are worked out for you.</span><i>Try it →</i></button>
+    <button class="hm-tool c3" type="button" data-go="gauge"><span class="fm hm-num"><em>20 sts × 28 rows</em><small>= 10 cm square</small></span><b>Gauge calculator</b><span>Measure a swatch once, then get stitches and rows for any size.</span><i>Try it →</i></button>
+    <button class="hm-tool c6" type="button" data-go="evenly"><span class="fm hm-num"><em>80 → 92</em><small>(k7, M1) 8 times, (k6, M1) 4 times</small></span><b>Increase or decrease evenly</b><span>Spaces your increases or decreases evenly across a row and writes the instruction.</span><i>Try it →</i></button>
+    <button class="hm-tool c4" type="button" data-go="costs"><span class="fm hm-num"><em>£14.50</em><small>3 skeins · 1 button · shopping list ✓</small></span><b>Materials cost calculator</b><span>What a make will cost, how many packs to buy, and a tick-off shopping list you can download as a PDF.</span><i>Try it →</i></button>
+    <button class="hm-tool c5" type="button" data-go="counters"><span class="fm hm-num"><em>ROW 24</em><small>stitch 37 of 60 · [ + ]</small></span><b>Row and stitch counter</b><span>Big tap-to-count buttons for every project, saved as you go.</span><i>Try it →</i></button>
+    <button class="hm-tool c3" type="button" data-go="journal"><span class="fm hm-num"><em>7 / 24</em><small>▓▓▓░░░░░ 29% DONE</small></span><b>Project journal</b><span>Tick off every round of a pattern, or tap rows right on its chart. Keep notes and all your works in progress in one place.</span><i>Try it →</i></button>
+    <button class="hm-tool c6" type="button" data-go="spin"><span class="fm hm-wheel"><i></i></span><b>Inspire me wheel</b><span>Stuck in a rut? Spin it and let the wheel pick your next make.</span><i>Spin →</i></button>
+    <button class="hm-tool c1" type="button" data-go="mine"><span class="fm hm-saved"><em>My stuff</em><small>✓ Cherry hat chart</small><small>✓ Stripy scarf notes</small><small>✓ Cat hat pattern</small></span><b>My stuff</b><span>Charts, patterns, garments and projects are all saved here to come back to, edit or export.</span><i>Open →</i></button>
+    <button class="hm-tool c2" type="button" data-go="community"><span class="fm photo"><img src="images/creations/3.jpg" alt="" loading="lazy" onerror="this.src='images/stripy-scarf.jpg'"></span><b>Community and Moll’s creations</b><span>Studio posts, tips and a scrapbook board of things I’ve made.</span><i>Visit →</i></button>
+  </div>
+
+  <h2 class="hl2" id="hm-new">What’s new in the studio <svg class="stk inl" style="width:44px;color:#c4ff2e" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-spark"/></svg></h2>
+  <div class="hm-path hm-newgrid">
+    <div class="note n1"><div class="paper t1"><b>Your chart on a beanie or tote</b><br>See it on the real thing, drag it into place and draw straight on the garment. Then press one button for a pattern.<div class="cta"><button class="pri" type="button" data-go="garment">Try it</button></div></div></div>
+    <div class="note n2"><div class="paper t2"><b>Patterns in the round or flat</b><br>Magic loop, one long piece or two flat panels. Cast on, markers, every round and the crown are written out for you.<div class="cta"><button class="pri" type="button" data-go="garment">Make a pattern</button></div></div></div>
+    <div class="note n0"><div class="paper t0"><b>US or UK terms</b><br>Every pattern has a switch: sc or dc, bind off or cast off, color or colour. The pattern changes to match.<div class="cta"><button class="pri" type="button" data-go="patterns">See patterns</button></div></div></div>
+    <div class="note n3"><div class="paper t3"><b>Tick off every row</b><br>Trackers follow every round, and you can tick rows by tapping them on the chart picture.<div class="cta"><button class="pri" type="button" data-go="journal">Open the journal</button></div></div></div>
+    <div class="note n1"><div class="paper t1"><b>My garments</b><br>Save a garment with its colour work, come back to edit the chart and link it to a saved pattern.<div class="cta"><button class="pri" type="button" data-go="my-garments">My garments</button></div></div></div>
+    <div class="note n2"><div class="paper t2"><b>Shopping list to PDF</b><br>Work out what a make will cost, then download your shopping list as a PDF to take to the shop.<div class="cta"><button class="pri" type="button" data-go="costs">Cost calculator</button></div></div></div>
+  </div>
+
+  <h2 class="hl2" id="hm-begin">New to crafting? Start here <svg class="stk inl" style="width:50px;transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-flower"/></svg></h2>
+  <p class="lead hm-sub">Everything you need for your very first make, step by step. Every pattern here is beginner friendly.</p>
+  <div class="hm-path">
+    <div class="note n0"><div class="paper t0"><span class="big">1</span><b>Pick an easy first make</b><br>A scarf is perfect: straight rows, no shaping. The Stripy Scarf is a great one to start with.<div class="cta"><button class="pri" type="button" data-go="pattern-stripy-scarf">See the Stripy Scarf</button></div></div></div>
+    <div class="note n1"><div class="paper t1"><span class="big">2</span><b>Check your gauge</b><br>Knit a little square and measure it, so your make comes out the right size.<div class="cta"><button class="pri" type="button" data-go="gauge">Gauge calculator</button></div></div></div>
+    <div class="note n2"><div class="paper t2"><span class="big">3</span><b>Get your materials</b><br>Find out how much yarn to buy and what it’ll cost, with a shopping list to tick off.<div class="cta"><button class="pri" type="button" data-go="costs">Cost calculator</button></div></div></div>
+    <div class="note n0"><div class="paper t3"><span class="big">4</span><b>Keep count as you go</b><br>Tap to count your rows and stitches so you never lose your place.<div class="cta"><button class="pri" type="button" data-go="counters">Row counter</button></div></div></div>
+  </div>
+
+  <h2 class="hl2">Your designs, always yours <svg class="stk inl" style="width:44px;color:#c4ff2e" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-spark"/></svg></h2>
+  <div class="hm-flow">
+    <div class="hm-fs"><span>✎</span><b>Make it</b>Charts, patterns and notes with the free tools.</div><i aria-hidden="true">→</i>
+    <div class="hm-fs"><span>♥</span><b>Save it</b>Everything goes into My stuff.</div><i aria-hidden="true">→</i>
+    <div class="hm-fs"><span>↺</span><b>Come back</b>Pick up where you left off and edit any time.</div><i aria-hidden="true">→</i>
+    <div class="hm-fs"><span>⇩</span><b>Export it</b>PNG or PDF, free, as many times as you like.</div>
+  </div>
+  <p class="hm-small">Your designs are saved in your browser on this device, so nothing is uploaded and nobody else can see them.</p>
+
+  <div class="band"><svg class="stk" style="right:4%;top:24px;width:110px;transform:rotate(12deg);color:#ff9acb" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-burst"/></svg><svg class="stk" style="right:14%;top:60px;width:84px;transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-smile"/></svg><svg class="stk" style="left:46%;top:26px;width:34px;color:#ffe552" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-spark"/></svg><h2 class="section-title">Pick a chart to start</h2>
+    <p class="lead">Each knitting type has its own chart maker with the right tools for the job.</p>
+    <div class="tiles" id="tiles"></div></div>
+  <h2 class="hl2">Latest from the studio <svg class="stk inl" style="width:54px;transform:rotate(8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-flower"/></svg></h2>
+  <div class="lib" id="latest"></div>
+  <h2 class="hl2">Free patterns to try <svg class="stk inl" style="width:54px;transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-heart"/></svg></h2>
+  <div class="lib" id="feat"></div>
+  <h2 class="hl2">How it works <svg class="stk inl" style="width:44px;color:#c4ff2e" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-spark"/></svg></h2>
+  <div class="steps">
+    <div class="note n0"><div class="paper t0"><span class="big">1</span><b>Choose your chart</b><br>Colourwork, cable, lace or textured. Set the stitches and rows you need.</div></div>
+    <div class="note n1"><div class="paper t1"><span class="big">2</span><b>Draw it</b><br>Paint colours or place stitch symbols. Undo, redo and preview as you go.</div></div>
+    <div class="note n2"><div class="paper t2"><span class="big">3</span><b>Save and print</b><br>Keep unfinished charts, then export the chart, written instructions or both.</div></div>
+  </div>
+
+  <!-- HOME: support Moll (pay what you like). Put your real links in SUPPORT_LINKS near the end of script.js -->
+  <div class="hm-support" id="hm-support">
+    <div class="note n1"><div class="paper t2">
+      <p class="hm-kicker">The honesty jar ☕</p>
+      <h2 class="hm-big">Pay if you like what I’m doing.</h2>
+      <p>It’s just me, Moll, building and running all of this myself, and everything here will always be free. If the studio has helped you start your first project, or fall back in love with crafting, you can chip in whatever feels right. No pressure at all: using the site and sharing it with a friend is support too.</p>
+      <div class="cta"><a class="pri hm-pay" id="hm-coffee" href="#" target="_blank" rel="noopener">Buy me a coffee ☕</a><a class="pri mintb hm-pay" id="hm-patreon" href="#" target="_blank" rel="noopener">Support me on Patreon ♥</a></div>
+      <p class="hm-small" id="hm-paynote" hidden>The links are coming soon. Thank you for wanting to help ♥</p>
+    </div></div>
+  </div>
+</section>
+<section id="spin" hidden><svg class="stk corner" style="transform:rotate(10deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-disco"/></svg>
+  <h1>Inspire me ✦</h1><p class="lead">Stuck in a knitting rut? Spin the wheel and it will pick one of the patterns in the studio for you to knit.</p>
+  <div class="spinw"><div class="wheelbox"><div class="ptr" aria-hidden="true"></div><canvas id="wheel" width="460" height="460" aria-label="Spinning wheel of patterns"></canvas></div>
+  <div class="spinr"><label>Only spin for <select id="sf"><option value="All">Everything</option><option value="jumpers">Jumpers</option><option value="hats">Hats</option><option value="bags">Bags</option><option value="scarves">Scarves &amp; cowls</option><option value="mittens">Mittens &amp; gloves</option><option value="blankets">Blankets &amp; homewares</option></select></label>
+  <div class="row" style="margin:.7rem 0"><button class="pri" id="spinb">Spin the wheel ♥</button><button id="surp">Just surprise me</button></div>
+  <div class="note n3"><div class="paper t1" id="spinres" aria-live="polite"><p class="lead" style="margin:0">Your pattern will land here.</p></div></div></div></div>
+</section>
+<!-- PATTERN LIBRARY: browse and open the available craft patterns. -->
+<section id="patterns" hidden><svg class="stk corner" style="transform:rotate(12deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg>
+  <h1 id="ph">Patterns ♥</h1><p class="lead" id="pl"></p>
+  <h2 class="create-h">Create your own here ✦</h2>
+  <div class="create-here">
+    <section class="note n3" aria-labelledby="cp-maker"><div class="paper t1"><h3 id="cp-maker">Pattern maker</h3>
+      <p>Write your own pattern with project details, instructions and photos, then save it and export a PDF.</p>
+      <button class="pri" data-go="pattern-maker">Open the pattern maker ✦</button></div></section>
+    <section class="note n1" aria-labelledby="cp-gen"><div class="paper t2"><h3 id="cp-gen">Pattern generator</h3>
+      <p>Pick a size, crown and colour, add your yarn or gauge, and get a beanie pattern with the stitch counts worked out.</p>
+      <button class="pri mintb" data-go="beanie">Open the pattern generator ✦</button></div></section>
+  </div>
+  <div class="chips" id="chips"></div><div class="lib" id="lib"></div>
+</section>
+<!-- CHARTS: chart-maker entry points and chart-related content. -->
+<section id="charts" hidden><svg class="stk corner" style="transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg>
+  <h1 id="chh">Charts ★</h1><p class="lead">Charts to open in the chart maker, where you can recolour them, resize them or use them in your own project.</p>
+  <h2 class="create-h">Create your own here ✦</h2>
+  <div class="create-here">
+    <section class="note n3" aria-labelledby="cc-maker"><div class="paper t1"><h3 id="cc-maker">Chart creator</h3>
+      <p>Design your own chart in the chart maker. Pick the type of chart you want to make.</p>
+      <div class="row" id="cc-kinds"></div></div></section>
+  </div>
+  <div class="chart-searchbar"><label for="chart-search">Search charts</label><input id="chart-search" type="search" placeholder="Search by name, motif or category"><p id="chart-count" class="meta" role="status" aria-live="polite"></p></div>
+  <div class="row chart-publish-actions"><button type="button" class="pri" data-go="chart-publications">Manage publications</button></div>
+  <div class="chips" id="cchips" aria-label="Chart categories"></div><div class="lib" id="clib"></div><button id="chart-load-more" type="button" class="pri" hidden>Load more charts</button>
+</section>
+<section id="chart-publications" hidden>
+  <svg class="stk corner" style="transform:rotate(8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg>
+  <h1>All publications ★</h1>
+  <p class="lead">Review and edit your published charts. Browser edits are saved on this device. To keep them in the website code and include them in a live deployment, download the source data file and replace <code>published-charts.js</code> in your project.</p>
+  <div class="chips my-stuff-nav" aria-label="Publication tools">
+    <button type="button" data-go="charts">← Charts</button>
+    <button type="button" class="pri" id="chart-publications-export">Download website chart data</button>
+  </div>
+  <p id="chart-publications-status" class="hint" role="status" aria-live="polite"></p>
+  <div class="lib" id="chart-publications-list"></div>
+</section>
+<!-- POSTS: community posts and project updates. -->
+<section id="posts" hidden><svg class="stk corner" style="transform:rotate(-10deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-smile"/></svg><h1>Posts ✿</h1><div class="chips ctabs" data-ctabs role="group" aria-label="Community pages"></div><p class="lead" id="pstl">Works in progress, finished makes and crafty tips from the studio.</p><div class="lib" id="plist"></div></section>
+<section id="post" hidden></section>
+<section id="pattern" hidden></section>
+<!-- SHOP: sample listings with client-side sorting and listing previews. -->
+<section id="shop" hidden>
+  <h1>Shop ✿</h1><div class="chips ctabs" data-ctabs role="group" aria-label="Community pages"></div>
+  <p class="lead">Browse studio makes, see what has sold, and open a listing for more details. Checkout is not available yet.</p>
+  <div id="shop-list-view">
+    <div class="shop-toolbar">
+      <p id="shop-count" class="meta" role="status" aria-live="polite"></p>
+      <label for="shop-sort">Sort available listings
+        <select id="shop-sort">
+          <option value="newest">Recently added</option>
+          <option value="price-low">Price: low to high</option>
+          <option value="price-high">Price: high to low</option>
+        </select>
+      </label>
+    </div>
+    <h2 class="shop-section-title">Available now</h2>
+    <div id="shop-available" class="shop-grid"></div>
+    <h2 class="shop-section-title">Previously sold</h2>
+    <p class="meta">A little archive of makes that have found a home.</p>
+    <div id="shop-sold" class="shop-grid"></div>
+  </div>
+  <div id="shop-detail-view" hidden></div>
+</section>
+<!-- PATTERN MAKER: create, save and export local pattern designs. -->
+<section id="pattern-maker" hidden>
+  <div class="row pm-back"><button type="button" data-go="patterns">← Back to patterns</button><button type="button" id="pm-new">Start a new pattern</button><a class="pm-home-link" href="#home">Moll’s Studio home page</a></div>
+  <h1>Create your own pattern</h1>
+  <p class="lead">Write up your project, add photos and save it to My Patterns on this device. Export a PNG or PDF whenever you are ready. Patterns are not uploaded or linked to an account.</p>
+  <div class="pm-layout">
+    <form id="pattern-form" class="pm-form" novalidate>
+      <fieldset class="pm-section">
+        <legend>Pattern details</legend>
+        <label class="pm-field">Pattern title <span aria-hidden="true">*</span>
+          <input id="pm-title" type="text" maxlength="120" placeholder="e.g. Daisy-day tote bag" required>
+        </label>
+        <div class="pm-fields">
+          <label class="pm-field">Craft
+            <select id="pm-craft"><option>Knitting</option><option>Crochet</option><option>Cross stitch</option><option>Other</option></select>
+          </label>
+          <label class="pm-field">Skill level
+            <select id="pm-level"><option>Beginner</option><option>Easy</option><option>Intermediate</option><option>Advanced</option><option>All levels</option></select>
+          </label>
+        </div>
+        <label class="pm-field">Short description
+          <textarea id="pm-description" rows="3" maxlength="1200" placeholder="What are you making?"></textarea>
+        </label>
+      </fieldset>
+      <fieldset class="pm-section">
+        <legend>Materials and sizing</legend>
+        <label class="pm-field">Yarn or materials
+          <textarea id="pm-yarn" rows="2" placeholder="Yarn type, colour and amount, or other materials"></textarea>
+        </label>
+        <label class="pm-field">Tools
+          <textarea id="pm-tools" rows="2" placeholder="Needles, hooks, fabric, tools and sizes"></textarea>
+        </label>
+        <label class="pm-field">Gauge
+          <textarea id="pm-gauge" rows="2" placeholder="Stitches and rows over 10 cm, if applicable"></textarea>
+        </label>
+        <div class="pm-fields">
+          <label class="pm-field">Sizes
+            <textarea id="pm-sizes" rows="2" placeholder="Available sizes or measurements"></textarea>
+          </label>
+          <label class="pm-field">Finished dimensions
+            <textarea id="pm-finished" rows="2" placeholder="Finished width, length or circumference"></textarea>
+          </label>
+        </div>
+        <label class="pm-field">Notions and other supplies
+          <textarea id="pm-notions" rows="2" placeholder="Markers, buttons, tapestry needle, etc."></textarea>
+        </label>
+      </fieldset>
+      <fieldset class="pm-section">
+        <legend>Optional colour chart</legend>
+        <p class="meta">Add one of your saved colourwork charts to the pattern preview and exports.</p>
+        <label class="pm-field">Saved colour chart
+          <select id="pm-chart" aria-describedby="pm-chart-message">
+            <option value="">No chart selected</option>
+          </select>
+        </label>
+        <div class="row">
+          <button type="button" id="pm-add-chart">Add chart to pattern</button>
+          <button type="button" id="pm-remove-chart" hidden>Remove chart</button>
+        </div>
+        <p id="pm-chart-message" class="pm-message" role="status" aria-live="polite"></p>
+      </fieldset>
+      <fieldset class="pm-section">
+        <legend>Instructions</legend>
+        <div id="pm-steps"></div>
+        <button type="button" id="pm-add-step">Add instruction section +</button>
+      </fieldset>
+      <fieldset class="pm-section">
+        <legend>Finished photos</legend>
+        <label class="pm-field">Upload photos (up to 6, 5 MB each)
+          <input id="pm-photos" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+        </label>
+        <p id="pm-photo-message" class="pm-message" role="status" aria-live="polite"></p>
+        <div id="pm-photo-list" class="pm-photo-list"></div>
+      </fieldset>
+      <fieldset class="pm-section">
+        <legend>Extra notes</legend>
+        <label class="pm-field">Finishing, tips or credits
+          <textarea id="pm-notes" rows="4" placeholder="Add any useful finishing notes, tips or design credits"></textarea>
+        </label>
+      </fieldset>
+      <div class="pm-actions">
+        <button type="button" id="pm-save">Save to My Patterns</button>
+        <button type="button" id="pm-export-png">Export PNG</button>
+        <button type="button" class="pri" id="pm-export-pdf">Export PDF</button>
+        <label class="trk-opt"><input type="checkbox" id="pm-trk"> Add tick boxes to the PDF (tracker)</label>
+        <button type="button" id="pm-track">Track progress</button>
+        <button type="button" id="pm-view-saved" data-go="my-patterns" hidden>View My Patterns</button>
+        <span id="pm-status" role="status" aria-live="polite">Save to keep this pattern in My Patterns on this device.</span>
+      </div>
+    </form>
+    <aside class="pm-preview-wrap" aria-label="Live pattern preview">
+      <h2 class="hl2">Live preview</h2>
+      <div id="pattern-preview"></div>
+    </aside>
+  </div>
+</section>
+<!-- COMMUNITY: community-facing content and contributions. -->
+<section id="creations" hidden><svg class="stk corner" style="transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-cherry"/></svg>
+  <h1>Moll’s creations</h1><div class="chips ctabs" data-ctabs role="group" aria-label="Community pages"></div>
+  <p class="lead">A board of things I’ve made. Tap a picture to see it bigger.</p>
+  <div class="chips" id="cr-chips" role="group" aria-label="Filter creations"></div>
+  <div class="cmas" id="cr-board"></div>
+  <p style="text-align:center;margin:1.2rem 0"><button class="pri" id="cr-more" hidden>Load more pictures</button></p>
+  <p class="lead" id="cr-empty" hidden>Nothing here yet. New makes are on their way ✿</p>
+  <dialog id="cr-box" aria-label="Creation viewer"><div class="crb"><button class="crx" id="cr-x" aria-label="Close">✕</button><img id="cr-img" alt=""><div class="row"><button id="cr-prev">← Previous</button><a class="btn pri" id="cr-link" hidden>See the pattern</a><button id="cr-next">Next →</button></div></div></dialog>
+</section>
+<section id="gauge" hidden><svg class="stk corner" style="transform:rotate(8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg>
+  <h1>Gauge calculator</h1>
+  <p class="lead">Knit or crochet a swatch, measure it, and this works out how many stitches and rows you need for any measurement, like the width of a sweater panel.</p>
+  <div class="win"><div class="tb"><span>1. your gauge</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <div class="gg">
+      <label>Measure in <select id="g-unit"><option value="cm">centimetres</option><option value="in">inches</option></select></label>
+      <label>Swatch width <span class="gi"><input id="g-w" type="number" min="0" step="any" inputmode="decimal" value="10"><b class="gu">cm</b></span></label>
+      <label>Stitches across that width <input id="g-s" type="number" min="0" step="any" inputmode="decimal" value="20"></label>
+      <label>Swatch height <span class="gi"><input id="g-h" type="number" min="0" step="any" inputmode="decimal" value="10"><b class="gu">cm</b></span></label>
+      <label>Rows over that height <input id="g-r" type="number" min="0" step="any" inputmode="decimal" value="7"></label>
+    </div>
+    <p class="meta" id="g-sum" role="status"></p>
+  </div></div>
+  <div class="win" style="margin-top:1.4rem"><div class="tb"><span>2. what are you making?</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <p class="meta" style="margin-top:0">Add each measurement you need. “Across” gives stitches, “down” gives rows.</p>
+    <div id="g-list"></div>
+    <div class="row" style="margin:.8rem 0"><button class="pri" id="g-add">Add a measurement</button><button id="g-copy">Copy results</button></div>
+    <div class="gg">
+      <label>Rounding <select id="g-round"><option value="nearest">Nearest whole stitch</option><option value="up">Round up</option><option value="down">Round down</option><option value="multiple">Multiple of a pattern repeat</option></select></label>
+      <label id="g-repl">Pattern repeat (stitches) <input id="g-rep" type="number" min="1" step="1" inputmode="numeric" value="4"></label>
+      <label>Extra stitches per row (edges or seams) <input id="g-ext" type="number" min="0" step="1" inputmode="numeric" value="0"></label>
+    </div>
+    <p class="hint" id="g-msg" role="status"></p>
+  </div></div>
+  <div class="win" style="margin-top:1.4rem"><div class="tb"><span>3. how big will it be?</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <p class="meta" style="margin-top:0">Already have a stitch count? Enter it to see the size it makes in your gauge.</p>
+    <div class="gg">
+      <label>Stitches <input id="g-bs" type="number" min="0" step="any" inputmode="decimal" value="80"></label>
+      <label>Rows <input id="g-br" type="number" min="0" step="any" inputmode="decimal" value="100"></label>
+    </div>
+    <p class="lead" id="g-big" role="status" style="margin:.6rem 0 0"></p>
+  </div></div>
+</section>
+<section id="beanie" hidden><svg class="stk corner" style="transform:rotate(8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg>
+  <h1>Beanie pattern generator ✿</h1>
+  <p class="lead">Pick a size, colour and crown for the Classic Folded Cuff Beanie, enter your yarn or gauge, and get the full pattern with the stitch counts worked out for you. It uses plain maths, no AI, and your choices are saved in the page link so you can share them.</p>
+  <div class="chips" id="b-steps" role="group" aria-label="Steps"><button data-s="1">1. Design</button><button data-s="2">2. Yarn &amp; gauge</button><button data-s="3">3. Your pattern</button></div>
+  <div class="bp" id="b-p1">
+    <div class="bgrid">
+      <div class="win"><div class="tb"><span>your beanie</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd bprev"><div id="b-prev" role="img" aria-label="Preview of your beanie"></div></div></div>
+      <div class="win"><div class="tb"><span>choose your options</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd bopts" id="b-opts"></div></div>
+    </div>
+  </div>
+  <div class="bp" id="b-p2" hidden>
+    <div class="win"><div class="tb"><span>pick a yarn</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+      <p class="meta" style="margin-top:0">These are typical gauges for each yarn type. Your own swatch is always more accurate, so use the custom boxes below if you have one.</p>
+      <label class="bl">Search yarns <input id="b-q" type="search" placeholder="Try worsted, merino, cotton…" autocomplete="off"></label>
+      <div class="byl" id="b-yarns" role="group" aria-label="Yarns"></div>
+    </div></div>
+    <div class="win" style="margin-top:1.4rem"><div class="tb"><span>or use your own gauge</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+      <div class="bgg">
+        <label class="bl">Measure in <select id="b-u"><option value="cm">per 10 cm</option><option value="in">per 4 inches</option></select></label>
+        <label class="bl">Stitches <input id="b-gs" type="number" min="5" max="60" step="any" inputmode="decimal"></label>
+        <label class="bl">Rows <input id="b-gr" type="number" min="5" max="80" step="any" inputmode="decimal"></label>
+      </div>
+      <p class="meta" id="b-gsum" role="status"></p>
+    </div></div>
+  </div>
+  <div class="bp" id="b-p3" hidden>
+    <div class="win"><div class="tb"><span>your pattern</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+      <div id="b-out"></div>
+      <div class="row" style="margin:1rem 0 .4rem"><button class="pri" id="b-pdf">Download PDF</button><button id="b-cost">Work out the cost</button><button id="b-link">Copy link to this design</button></div>
+      <p class="hint" id="b-msg" role="status"></p>
+    </div></div>
+  </div>
+  <p class="row" style="margin:1.2rem 0"><button id="b-back">← Back</button><button class="pri" id="b-next">Next →</button></p>
+</section>
+<section id="costs" hidden><svg class="stk corner" style="transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg>
+  <h1>Materials cost calculator</h1>
+  <p class="lead">Add what a project needs, what one pack costs and what you already own. It works out how many packs to buy, the total cost and the cost of each garment.</p>
+  <div class="win"><div class="tb"><span>1. your project</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <div class="cg">
+      <label>Project name <input id="c-name" type="text" maxlength="60" placeholder="e.g. Classic folded cuff beanie"></label>
+      <label>How many garments are you making? <input id="c-qty" type="number" min="1" step="1" inputmode="numeric" value="1"></label>
+      <label>Currency <select id="c-cur"><option value="£">£ pounds</option><option value="$">$ dollars</option><option value="€">€ euros</option></select></label>
+      <label>Extra yarn or fabric to allow, % <input id="c-extra" type="number" min="0" max="100" step="1" inputmode="numeric" value="10"></label>
+    </div>
+    <p class="meta" style="margin-bottom:0">The extra is added to yarn and fabric only (metres, yards, grams and cm), to cover tension differences and mistakes.</p>
+  </div></div>
+  <div class="win" style="margin-top:1.4rem"><div class="tb"><span>2. materials for one garment</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <p class="meta" style="margin-top:0">For each material, enter how much <b>one</b> garment needs, what comes in one pack (a skein, a card of buttons) and its price. Leave “already have” empty if you need to buy everything.</p>
+    <div class="cg" style="margin:.2rem 0 .8rem"><label>Price of one skein of yarn (fills every yarn row) <input id="c-skein" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 4.50"></label></div>
+    <div class="cg" style="margin:.2rem 0 .8rem"><label>Add a pattern from the website <select id="c-pat"><option value="">Choose a pattern…</option></select></label><span class="row"><button id="c-patadd">Add its materials</button></span></div>
+    <p class="meta" id="c-patmsg" role="status" style="margin-top:0"></p>
+    <div class="row" id="c-presets" style="margin:.2rem 0 .8rem" role="group" aria-label="Add a material"></div>
+    <div id="c-list"></div>
+  </div></div>
+  <div class="win" style="margin-top:1.4rem"><div class="tb"><span>3. the cost</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <div class="cg"><label>Other costs, such as postage <input id="c-other" type="number" min="0" step="any" inputmode="decimal" placeholder="0"></label></div>
+    <p class="lead" id="c-total" role="status" style="margin:.8rem 0 .2rem"></p>
+    <p class="meta" id="c-per" role="status" style="margin:0"></p>
+    <div id="c-shop"></div>
+    <div class="row" style="margin:.9rem 0 .3rem"><button class="pri" id="c-add">Add to my shopping list</button><button id="c-copy">Copy this list</button><button id="c-clear">Start again</button></div>
+    <p class="hint" id="c-msg" role="status"></p>
+  </div></div>
+  <div class="win" style="margin-top:1.4rem"><div class="tb"><span>4. my shopping list</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <p class="meta" style="margin-top:0">Everything you add from the calculator is saved here. Tick items off as you buy them.</p>
+    <div id="c-sl"></div>
+    <p class="lead" id="c-sltot" role="status" style="margin:.8rem 0 .2rem"></p>
+    <div class="row" style="margin:.7rem 0 .3rem"><button class="pri" id="c-slpdf">Download shopping list (PDF)</button><button id="c-slcopy">Copy</button><button id="c-sldone">Remove ticked items</button><button id="c-slclear">Clear entire shopping list</button></div>
+    <p class="hint" id="c-slmsg" role="status"></p>
+  </div></div>
+
+</section>
+<!-- INCREASE / DECREASE EVENLY: built by script.js ("increase or decrease evenly" section) -->
+<section id="garment" hidden><svg class="stk corner" style="transform:rotate(7deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-spark"/></svg>
+  <h1>Add your chart to a garment</h1>
+  <p class="lead">See how your colour charts look on a real knitted garment before you cast on. Pick a garment, pick a chart, then drag it into place. Add as many charts as you like.</p>
+  <div class="gp-steps" id="gp-steps" role="group" aria-label="Steps"><button type="button" data-n="1">1 · Pick a garment</button><button type="button" data-n="2">2 · Pick a chart</button><button type="button" data-n="3">3 · Place it</button><button type="button" data-n="4">4 · How to knit it</button><button type="button" data-n="5">5 · Your pattern</button></div>
+  <div id="gp1"><div><h2>Pick a garment</h2><div class="gp-grid" id="gp1-list"></div></div></div>
+  <div id="gp2" hidden><h2>Pick a chart</h2>
+    <div class="chips" id="gp-src"><button type="button" data-s="saved" aria-pressed="true">My saved charts</button><button type="button" data-s="ready" aria-pressed="false">Ready-made charts</button></div>
+    <p class="hint" id="gp2-note"></p>
+    <div class="gp-grid" id="gp2-list"></div>
+    <div class="gp-actions"><button type="button" id="gp-multi" aria-pressed="false">Select multiple</button><button type="button" id="gp-addsel" class="pri" hidden disabled>Add selected charts →</button></div>
+    <div class="gp-actions"><button type="button" id="gp-bag">Or start with a blank garment and draw on it</button><button type="button" id="gp-skip" hidden>Back to my garment →</button></div></div>
+  <div id="gp3" hidden></div>
+  <div id="gp4" hidden><h2 id="gp4-q">How will you knit your bag?</h2>
+    <p class="hint">Pick how the garment will be made. This decides how the pattern and the charts are written.</p>
+    <div class="gp-grid" id="gp4-list"></div>
+    <p class="hint" id="gp4-note"></p>
+    <div class="gp-actions"><button type="button" id="gp4-back">← Back to my bag</button><button type="button" id="gp4-go" class="pri" hidden>Write the pattern →</button></div></div>
+  <div id="gp5" hidden><div class="gp-actions"><button type="button" id="gp5-back">← Back</button></div><div id="gp5-out"></div></div>
+</section>
+<section id="my-garments" hidden><svg class="stk corner" style="transform:rotate(9deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-cherry"/></svg><h1>My garments ★</h1><p class="lead">Garments you have designed with colourwork, saved on this device. Open one to keep editing its chart, or link it to one of your patterns.</p><div class="chips my-stuff-nav" aria-label="My stuff pages"><button type="button" data-go="mine">← My stuff</button><button type="button" data-go="my-patterns">My patterns</button><button type="button" data-go="my-charts">My charts</button><button type="button" data-go="journal">Project journal</button></div><div class="lib" id="my-garment-list"></div></section>
+<section id="bagpattern" hidden><h1>Bag pattern</h1>
+  <div class="gp-actions"><button type="button" id="gpv-back">← Back to My Patterns</button></div>
+  <div id="gpv-out"></div></section>
+<section id="evenly" hidden><svg class="stk corner" style="transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-spark"/></svg>
+  <h1>Increase or decrease evenly</h1>
+  <p class="lead">Tell it how many stitches you have and how many to add or take away, and it spaces them out evenly across the row and writes the instruction for you.</p>
+  <div class="win"><div class="tb"><span>1. your row</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <div class="ev-chips" role="group" aria-label="Craft"><button type="button" data-ev-craft="knit" aria-pressed="true">Knitting</button><button type="button" data-ev-craft="crochet" aria-pressed="false">Crochet</button></div>
+    <div class="ev-chips" role="group" aria-label="Increase or decrease"><button type="button" data-ev-mode="inc" aria-pressed="true">Increase ＋</button><button type="button" data-ev-mode="dec" aria-pressed="false">Decrease －</button></div>
+    <div class="gg">
+      <label>Stitches I have now <input id="ev-n" type="number" min="1" step="1" inputmode="numeric" value="80"></label>
+      <label><span id="ev-cl">Stitches to add</span> <input id="ev-c" type="number" min="0" step="1" inputmode="numeric" value="12"></label>
+      <label>Working <select id="ev-way"><option value="flat">Flat, in rows</option><option value="round">In the round</option></select></label>
+      <label><span id="ev-rl">Over how many rows</span> <input id="ev-rows" type="number" min="1" step="1" inputmode="numeric" placeholder="as few as possible"></label>
+      <label><span id="ev-pl">Plain rows in between</span> <select id="ev-gap"><option value="0">None, shape every row</option><option value="1">1 (shape every other row)</option><option value="2">2 (shape every 3rd row)</option><option value="3">3 (shape every 4th row)</option></select></label>
+      <label id="ev-kl">Increase with <select id="ev-kind"><option value="m1">M1 (make 1 between stitches)</option><option value="kfb">kfb (knit front and back)</option></select></label>
+    </div>
+    <p class="hint" id="ev-msg" role="status"></p>
+  </div></div>
+  <div class="win" style="margin-top:1.4rem"><div class="tb"><span>2. your instruction</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <p class="ev-total" id="ev-total" role="status"></p>
+    <div class="ev-chips" role="group" aria-label="Instruction style"><button type="button" data-ev-style="easy" aria-pressed="true">Easy to remember</button><button type="button" data-ev-style="even" aria-pressed="false">Most even</button></div>
+    <p class="ev-out" id="ev-out"></p>
+    <p class="ev-plan" id="ev-plan" hidden></p>
+    <div class="row"><button class="pri" id="ev-copy" type="button">Copy instruction</button></div>
+    <p class="meta" id="ev-key" style="margin-bottom:0"></p>
+  </div></div>
+  <div class="win" style="margin-top:1.4rem"><div class="tb"><span>3. see it on your row</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <p class="meta" style="margin-top:0">Each square is one stitch from your row as it is now. The coloured ones show where each <span id="ev-what">increase</span> goes.<span id="ev-sl"></span></p>
+    <div class="ev-strip" id="ev-strip" aria-hidden="true"></div>
+  </div></div>
+</section>
+
+<section id="counters" hidden><svg class="stk corner" style="transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg>
+  <h1>Row and stitch counter</h1>
+  <p class="lead">Keep track of where you are in each project. Add a counter for every project you are working on, tap the big buttons as you knit or crochet, and come back later: everything is saved in this browser.</p>
+  <div class="win"><div class="tb"><span>new counter</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+    <div class="ctnew"><label>Project name <input id="ct-name" type="text" maxlength="60" placeholder="e.g. Cat hat"></label>
+    <label>Total rows (optional) <input id="ct-rt" type="number" min="0" inputmode="numeric" placeholder="e.g. 60"></label>
+    <label>Stitches per row (optional) <input id="ct-st" type="number" min="0" inputmode="numeric" placeholder="e.g. 96"></label>
+    <button class="btn pri" id="ct-add" type="button">Add counter</button></div>
+    <p class="meta" id="ct-msg" role="status"></p>
+  </div></div>
+  <div id="ct-list" class="ctlist"></div>
+</section>
+<section id="alltools" hidden><svg class="stk corner" style="transform:rotate(10deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg>
+  <h1>Tools ✦</h1>
+  <p class="lead">Everything you can use to design, plan and price your makes, all in one place.</p>
+  <div class="chips tp-nav" id="tp-nav" role="group" aria-label="Tool groups"></div>
+  <div id="tp-list"></div>
+</section>
+<section id="community" hidden><svg class="stk corner" style="transform:rotate(8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-disco"/></svg>
+  <h1>Community ☺</h1>
+  <div class="chips ctabs" data-ctabs role="group" aria-label="Community pages"></div>
+  <p class="lead">Join the studio, read the latest posts and see what other makers are sharing. Some parts of this page are still a preview.</p>
+  <h2>Latest posts ✿</h2>
+  <div class="lib" id="cplist"></div>
+  <p style="margin:.8rem 0 1.4rem"><button class="pri" data-go="posts">See all posts</button></p>
+  <div class="rr"></div>
+  <div class="steps">
+    <div class="win"><div class="tb"><span>join the studio</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem"><p>Make a free account to join the studio.</p><div class="row" style="margin-top:.6rem"><button data-go="account">Sign up</button><button data-go="account">Log in</button></div></div></div>
+    <div class="win"><div class="tb"><span>newsletter</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem"><fieldset disabled style="border:0;padding:0"><label>Email <input type="text" placeholder="you@example.com"></label><button style="margin-top:.5rem">Join the mailing list</button></fieldset><p class="meta">New patterns and posts, by email.</p></div></div>
+  </div>
+  <div class="rr"></div>
+  <h2>Shared designs ✿</h2>
+  <p class="lead">Charts and projects shared by makers will appear here, ready to download for inspiration.</p>
+  <div class="lib">
+    <article><div style="width:42%;aspect-ratio:1;border:2px dashed var(--bd);border-radius:8px;display:grid;place-items:center;font-size:2rem;color:var(--pink2)">✦</div><div><h3>Shared design</h3><p class="meta">By a maker, colourwork, 16 × 16</p><p>A short description will go here.</p><button disabled>Download chart</button></div></article>
+    <article><div style="width:42%;aspect-ratio:1;border:2px dashed var(--bd);border-radius:8px;display:grid;place-items:center;font-size:2rem;color:var(--pink2)">♥</div><div><h3>Shared design</h3><p class="meta">By a maker, lace, 12 × 20</p><p>A short description will go here.</p><button disabled>Download chart</button></div></article>
+  </div>
+  <p style="margin-top:1.2rem"><button disabled>Share your own design</button></p>
+</section>
+<!-- ACCOUNT: sign up, log in and signed-in view. Accounts are stored in this browser only. -->
+<section id="account" hidden><svg class="stk corner" style="transform:rotate(-9deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-smile"/></svg>
+  <h1 id="acct-h">Log in or sign up ☺</h1>
+  <p class="lead" id="acct-lead">Join the studio to keep your name on your designs. For now, accounts live on this device only, so nothing is sent anywhere.</p>
+  <div class="steps" id="acct-forms">
+    <div class="win"><div class="tb"><span>sign up</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+      <form id="su-form" novalidate>
+        <label>Name <input id="su-name" type="text" autocomplete="name" placeholder="Your name" required></label>
+        <label>Email <input id="su-email" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+        <label>Password <input id="su-pass" type="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required></label>
+        <label>Confirm password <input id="su-pass2" type="password" autocomplete="new-password" placeholder="Type it again" required></label>
+        <label style="justify-content:flex-start"><input id="su-news" type="checkbox"> Join the mailing list</label>
+        <div class="row" style="margin-top:.6rem"><button type="submit" class="pri">Create account</button></div>
+        <p class="meta" id="su-msg" role="status" aria-live="polite"></p>
+      </form></div></div>
+    <div class="win"><div class="tb"><span>log in</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+      <form id="li-form" novalidate>
+        <label>Email <input id="li-email" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+        <label>Password <input id="li-pass" type="password" autocomplete="current-password" placeholder="Your password" required></label>
+        <div class="row" style="margin-top:.6rem"><button type="submit" class="pri">Log in</button></div>
+        <p class="meta" id="li-msg" role="status" aria-live="polite"></p>
+      </form></div></div>
+  </div>
+  <div class="steps" id="acct-in" hidden>
+    <div class="win"><div class="tb"><span>your account</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+      <p id="acct-hi" style="font-size:1.2rem"></p>
+      <p class="meta" id="acct-since"></p>
+      <div class="row" style="margin-top:.6rem"><button class="pri" data-go="mine">My stuff</button><button id="acct-out">Log out</button></div>
+    </div></div>
+  </div>
+  <p class="meta" style="margin-top:1rem">This is a browser-only sign in, so it can’t be used on another device and isn’t secure enough for anything sensitive. Real accounts need a server, which can be added later.</p>
+</section>
+<section id="mine" hidden><svg class="stk corner" style="transform:rotate(9deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-cherry"/></svg><h1>My stuff ★</h1><p class="lead">Your saved patterns, charts and project journal, all in one place. Choose what you want to open. Everything is stored on this device.</p>
+<div class="my-stuff-options" aria-label="My stuff">
+  <button type="button" class="my-stuff-option" data-go="my-patterns"><b>My patterns</b><span>Open, edit, export or delete patterns you have made.</span><i>Open patterns →</i></button>
+  <button type="button" class="my-stuff-option" data-go="my-charts"><b>My charts</b><span>Open, export or delete charts you have saved.</span><i>Open charts →</i></button>
+  <button type="button" class="my-stuff-option" data-go="my-garments"><b>My garments</b><span>Garments with your colourwork on them. Open one to keep editing the chart, or link it to a pattern.</span><i>Open garments →</i></button>
+  <button type="button" class="my-stuff-option" data-go="journal"><b>Project journal</b><span>Keep track of your projects, notes and progress.</span><i>Open journal →</i></button>
+</div></section>
+<section id="my-patterns" hidden><svg class="stk corner" style="transform:rotate(9deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-cherry"/></svg><h1>My patterns ★</h1><p class="lead">Patterns you have made and saved on this device. Open or edit a pattern, export a PDF, or delete it.</p><div class="chips my-stuff-nav" aria-label="My stuff pages"><button type="button" data-go="mine">← My stuff</button><button type="button" data-go="my-charts">My charts</button><button type="button" data-go="my-garments">My garments</button><button type="button" data-go="journal">Project journal</button></div><div class="lib" id="my-pattern-list"></div></section>
+<section id="my-charts" hidden><svg class="stk corner" style="transform:rotate(9deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-cherry"/></svg><h1>My charts ★</h1><p class="lead">Charts you have saved on this device. Open, export or delete a chart.</p><div class="chips my-stuff-nav" aria-label="My stuff pages"><button type="button" data-go="mine">← My stuff</button><button type="button" data-go="my-patterns">My patterns</button><button type="button" data-go="my-garments">My garments</button><button type="button" data-go="journal">Project journal</button></div><div class="lib" id="my-chart-list"></div></section>
+<section id="journal" hidden><svg class="stk corner" style="transform:rotate(9deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-cherry"/></svg><h1>Project journal ✎</h1><p class="lead">Every project you are making, with its steps and chart rows to tick off, notes and progress. Add saved patterns or charts from My stuff, track a pattern from its page, or add your own project. Stored on this device.</p><div class="chips my-stuff-nav" aria-label="My stuff pages"><button type="button" data-go="mine">← My stuff</button><button type="button" data-go="my-patterns">My patterns</button><button type="button" data-go="my-charts">My charts</button><button type="button" data-go="my-garments">My garments</button></div>
+<details class="jr-addbox"><summary>+ Add a pattern or chart from My stuff</summary>
+<div class="jr-import-grid">
+  <div><label for="jr-pattern-source">Saved pattern</label><select id="jr-pattern-source"><option value="">Loading saved patterns…</option></select><button type="button" id="jr-add-pattern">Add pattern to journal</button></div>
+  <div><label for="jr-chart-source">Saved chart</label><select id="jr-chart-source"><option value="">Choose a chart</option></select><button type="button" id="jr-add-chart">Add chart to journal</button></div>
+</div>
+<p id="jr-source-status" class="hint" role="status" aria-live="polite"></p><p id="jr-import-msg" class="hint" role="status" aria-live="polite"></p>
+</details>
+<details class="jr-addbox"><summary>+ Add your own project</summary>
+<form id="jr-add" class="jr-form" autocomplete="off">
+<label>Project name <input id="jr-name" type="text" maxlength="100" placeholder="e.g. Mum’s birthday scarf"></label>
+<label>Craft <select id="jr-craft"><option>Knitting</option><option>Crochet</option><option>Cross stitch</option><option>Other</option></select></label>
+<label>Steps to tick off (one per line, optional) <textarea id="jr-steps" rows="5" maxlength="4000" placeholder="Cast on 60 stitches&#10;Rib for 10 rows&#10;Main body&#10;Cast off"></textarea></label>
+<div class="row"><button type="submit" class="pri">Add project</button><span id="jr-msg" class="hint" role="status"></span></div>
+</form></details>
+<div class="lib" id="jr-list"></div>
+</section>
+<section id="journal-project" class="jr-project-detail" hidden><svg class="stk corner" style="transform:rotate(9deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-cherry"/></svg><div id="jr-project-content"></div></section>
+
+<!-- DESIGNER: interactive chart design workspace and its controls. -->
+<section id="design" hidden>
+  <p id="intro" style="font:600 1.35rem/1.35 Fredoka,'Baloo 2',sans-serif;color:var(--ink);text-align:center;margin:.6rem auto 1rem;max-width:94%;text-shadow:0 0 6px var(--paper),0 0 6px var(--paper),0 0 3px var(--paper)"></p>
+  <div id="chart-publish-panel" class="win chart-publish-panel" hidden aria-labelledby="chart-publish-title">
+    <div class="tb"><span id="chart-publish-title">Review your chart before publishing</span></div>
+    <div class="bd">
+      <p class="meta">Charts publish to this browser’s catalogue first. Use All publications to edit charts and download website source data for a permanent deployment.</p>
+      <div id="chart-publish-preview" aria-label="Chart preview"></div>
+      <form id="chart-publish-form" class="chart-publish-form">
+        <div class="chart-publish-fields">
+          <label>Chart name <input id="chart-publish-name" type="text" maxlength="80" required></label>
+          <label>Description <textarea id="chart-publish-description" rows="3" maxlength="500" placeholder="Describe this chart"></textarea></label>
+          <p>Chart type: <strong id="chart-publish-kind"></strong></p>
+          <label>Category
+            <select id="chart-publish-category"></select>
+          </label>
+          <label id="chart-new-category-row" hidden>New category name
+            <input id="chart-new-category" type="text" maxlength="40" placeholder="e.g. Flowers">
+          </label>
+          <label class="chart-publish-repeat"><input id="chart-publish-repeat" type="checkbox"> Repeat this chart when the grid is resized</label>
+          <label class="chart-publish-repeat"><input id="chart-publish-export-code" type="checkbox" checked> Download updated website chart data when publishing</label>
+        </div>
+        <p id="chart-publish-status" role="status" aria-live="polite"></p>
+        <div class="row">
+          <button type="button" id="chart-publish-cancel">Back to chart</button>
+          <button type="submit" class="pri">Publish chart</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="studio" id="chart-studio">
+    <aside class="win tool"><div class="tb"><span>tool box</span><button type="button" class="mn" id="tbmin" aria-expanded="true" aria-controls="tbbody">Minimise ▲</button></div><div class="bd" id="tbbody">
+      <details id="fsz" class="tdd" open><summary>Size and colour ▾</summary><div style="display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .6rem">
+        <label>Wide <input id="gw" type="number" min="2" max="200" value="16"></label>
+        <label>High <input id="gh" type="number" min="2" max="200" value="16"></label>
+        <button id="rs">Resize grid</button>
+        <div id="fc" style="flex:1 1 100%;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem"><div class="sw" id="sw"></div><label title="Add a colour">+ <input type="color" id="cc" aria-label="Add a colour" value="#c4572f"></label><label id="chcl" title="Change the selected colour. Every square in the chart that uses it changes too.">🎨 Change selected colour <input type="color" id="chc" aria-label="Change the selected colour everywhere in the chart" value="#c4572f"></label><button type="button" id="rmc" title="Remove the selected colour from the palette">🗑 Remove selected colour</button></div>
+      </div></details>
+      <details id="ftxt" class="tdd"><summary>Add text ▾</summary><div class="rc">
+        <label class="rcn">Words <input id="mtxt" type="text" maxlength="60" placeholder="Type your words" style="flex:1;min-width:10rem"></label>
+        <label class="rcn">Font <select id="mfont"><option value="pixel">Pixel (stitchy)</option><option value="sans">Sans</option><option value="serif">Serif</option><option value="mono">Typewriter</option><option value="round">Rounded</option><option value="block">Narrow</option><option value="script">Script</option></select></label>
+        <label class="rcn">How tall (rows) <input id="mth" type="number" min="7" max="60" value="7" style="width:5rem"></label>
+        <p class="hint" style="margin:.2rem 0">Choose the <b>Text</b> tool, pick a colour, then click on the chart where the words should start. Long words wrap onto more lines.</p>
+        <button type="button" id="mtool">Use the Text tool</button>
+      </div></details>
+      <details id="fsel" class="tdd"><summary>Select, rotate and copy an area ▾</summary><div class="rc">
+        <p class="hint" style="margin:.2rem 0 .5rem">Choose the <b>Select area</b> tool and drag over part of the chart. Drag inside the selection to move it. Then rotate, flip, copy, cut or paste it.</p>
+        <div class="rcg"><b>Select</b><button type="button" data-sel="all">Select all</button><button type="button" data-sel="none">Deselect</button></div>
+        <div class="rcg"><b>Turn</b><button type="button" data-sel="ccw">↺ Rotate left</button><button type="button" data-sel="cw">↻ Rotate right</button><button type="button" data-sel="fh">⇆ Flip left-right</button><button type="button" data-sel="fv">⇅ Flip up-down</button></div>
+        <div class="rcg"><b>Copy</b><button type="button" data-sel="copy">Copy</button><button type="button" data-sel="cut">Cut</button><button type="button" data-sel="paste">Paste</button><button type="button" data-sel="del">Delete</button></div>
+      </div></details>
+      <details id="frc" class="tdd"><summary>Add or delete rows and columns ▾</summary><div class="rc">
+        <p id="rcsel" class="hint" style="margin:.2rem 0 .5rem">Click a square on the chart to choose where to add or delete. Row 1 is the bottom row.</p>
+        <label class="rcn">How many <input id="rcn" type="number" min="1" max="50" value="1" style="width:5rem"></label>
+        <div class="rcg"><b>Add</b><button type="button" data-rc="add-above">↑ Row above</button><button type="button" data-rc="add-below">↓ Row below</button><button type="button" data-rc="add-left">← Column left</button><button type="button" data-rc="add-right">→ Column right</button></div>
+        <div class="rcg"><b>Delete</b><button type="button" data-rc="del-above">↑ Row above</button><button type="button" data-rc="del-row">✕ This row</button><button type="button" data-rc="del-below">↓ Row below</button><button type="button" data-rc="del-left">← Column left</button><button type="button" data-rc="del-col">✕ This column</button><button type="button" data-rc="del-right">→ Column right</button></div>
+      </div></details>
+      <details id="fpst" class="tdd"><summary>Paste a copied picture ▾</summary><div style="display:block">
+        <div id="pz" tabindex="0" data-pz="1" role="button" aria-label="Click here and press Control V to paste a picture, or drop a picture here" style="position:relative;border:2px dashed var(--ink);border-radius:10px;padding:.8rem;text-align:center;background:#fff;cursor:pointer;font-weight:700"><button type="button" id="pbin" hidden aria-label="Delete picture" title="Delete picture" style="position:absolute;top:6px;right:6px;z-index:2;padding:.2rem .5rem">🗑 Delete</button><span id="pzt">📋 Click here, then press Ctrl+V (⌘V on a Mac) to paste a picture<br><span style="font-weight:400">or drop a picture onto this box</span></span><img id="pi" alt="Your picture" style="display:none;width:100%;max-height:340px;object-fit:contain;margin:0 auto;border-radius:6px"></div>
+        <div class="row" style="margin:.5rem 0"><button id="imgo2" disabled>Make chart</button></div>
+        <div class="row" style="margin:.4rem 0;gap:.6rem"><label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0;margin:0">Wide <input id="ppw" type="number" min="2" max="200" style="width:5rem"></label><label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0;margin:0">High <input id="pph" type="number" min="2" max="200" style="width:5rem"></label><label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0;margin:0">Colours <input id="ppc" type="number" min="2" max="64" style="width:5rem"></label></div>
+        <label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0"><input type="checkbox" id="ppz"> Pick grid size and colours for me</label>
+        <label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0"><input type="checkbox" id="ppa"> As many colours as possible</label>
+        <label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0">Use <select id="ppm"><option value="pic">Colours from the picture</option><option value="theme">Site theme colours</option></select></label>
+      </div></details>
+      <details id="fimg" class="tdd"><summary>Chart from a picture ▾</summary><div style="display:block">
+        <div class="row" style="margin:.4rem 0"><label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0;margin:0">Choose a picture <input type="file" id="imf" accept="image/*"></label></div>
+        
+        <div class="row" style="margin:.5rem 0"><button id="imgo" disabled>Make chart</button><span class="hint" id="imh" style="margin:0">Choose or paste a picture first.</span></div>
+        <label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0"><input type="checkbox" id="imz"> Pick grid size and colours for me</label>
+        <label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0"><input type="checkbox" id="ima"> As many colours as possible</label>
+        <label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0">Colours <input id="imc" type="number" min="2" max="64" value="6" style="width:5rem"></label>
+        <label style="display:flex;align-items:center;justify-content:flex-start;gap:.5rem;margin:.35rem 0">Use <select id="imm"><option value="pic">Colours from the picture</option><option value="theme">Site theme colours</option></select></label>
+        <p class="hint" style="margin:.3rem 0">Otherwise it uses the Wide and High above.</p>
+      </div></details>
+      <fieldset id="fs"><legend>Stitch symbol</legend><div class="sy" id="sy"></div></fieldset>
+      <details id="moretools"><summary>Save, open and export</summary><div>
+      <fieldset><legend>Project</legend>
+        <input type="text" id="nm" placeholder="Project name" aria-label="Project name">
+        <div class="row" style="margin:.5rem 0"><button id="sa">Save</button></div>
+        <select id="sv" aria-label="Saved projects"></select>
+        <div class="row" style="margin-top:.5rem"><button id="op">Open</button><button id="dl">Delete</button></div>
+      </fieldset>
+      <fieldset id="exp"><legend>Export for printing</legend>
+        <label>Include <select id="em"><option value="chart">Just the chart</option><option value="text">Just the written instructions</option><option value="both">Chart and instructions together</option></select></label>
+        <div class="row"><button id="ep">PNG image</button><button id="ed">PDF</button><button id="et" disabled>Text file</button></div>
+      </fieldset>
+      </div></details>
+    </div></aside>
+    <div class="win stage"><div class="tb"><span id="ttl">chart maker</span><i class="dots"><b></b><b></b><b></b></i></div><div class="bd" style="padding-top:.8rem">
+      <div class="row" id="views"><button data-w="chart" aria-pressed="true">Chart</button><button data-w="knit" aria-pressed="false">Knitted preview</button><button data-w="both" aria-pressed="false">Chart + preview</button><button data-w="garment" aria-pressed="false">On a garment</button><button data-w="text" aria-pressed="false">Written instructions</button></div>
+      <div class="row chart-publish-actions"><button type="button" id="chart-publish-open" class="pri">Publish</button></div>
+      <div class="wrap"><div class="pair" id="pair"><div class="pbox" id="pb1"><div class="pt" hidden>Chart</div><div class="row" id="edr" style="margin:0;padding:.5rem .6rem;border-bottom:2px dashed var(--ink);background:var(--paper)"><span class="hand" style="font-weight:800">Tool:</span><span class="row" id="tools" style="display:contents"></span><span style="width:1rem"></span><button id="un">↶ Undo</button><button id="re">↷ Redo</button><button id="cl">Clear chart</button></div><div class="pcv"><canvas id="cv" aria-label="Knitting chart"></canvas></div></div><div class="pbox" id="pb2" hidden><div class="pt">Knitted preview</div><div class="pcv"><canvas id="cv2" aria-label="Knitted preview, updates as you fill in the chart"></canvas></div></div></div><div id="wi" hidden></div>
+        <div id="gar" hidden></div></div>
+      <p class="hint" id="hint"></p>
+      <p id="msg" role="status" aria-live="polite"></p>
+    </div></div>
+  </div>
+</section>
+</main>
+<section class="music-player" id="music-player" aria-label="Music player">
+  <button type="button" class="music-collapse" id="music-collapse" aria-label="Minimise music player" aria-expanded="true" aria-controls="music-content"><span id="music-collapse-icon" aria-hidden="true">⌄</span></button>
+  <div id="music-content" class="music-content">
+    <div class="music-track">
+      <div class="music-art" aria-hidden="true">♫</div>
+      <div class="music-info">
+        <span class="music-label">Moll’s Studio radio</span>
+        <strong id="music-title">No tracks added yet</strong>
+        <span id="music-status" role="status" aria-live="polite">Add your Ableton tracks in script.js</span>
+      </div>
+    </div>
+    <div class="music-controls">
+      <div class="music-buttons">
+        <button id="music-prev" type="button" aria-label="Previous track" disabled>‹</button>
+        <button id="music-play" class="music-play" type="button" aria-label="Play" disabled>▶</button>
+        <button id="music-next" type="button" aria-label="Next track" disabled>›</button>
+      </div>
+      <div class="music-progress">
+        <span id="music-current">0:00</span>
+        <input id="music-seek" type="range" min="0" max="1000" value="0" aria-label="Seek through track" disabled>
+        <span id="music-duration">0:00</span>
+      </div>
+    </div>
+    <label class="music-volume" for="music-volume">Volume
+      <input id="music-volume" type="range" min="0" max="1" step="0.01" value="0.7" aria-label="Volume">
+    </label>
+  </div>
+  <audio id="music-audio" preload="metadata"></audio>
+</section>
+<!-- FOOTER: closing site information and links. -->
+<footer><svg class="stk fsm"  viewBox="0 0 100 100" aria-hidden="true"><use href="#s-smile"/></svg><div class="fnote"><span class="hand">made with love and a lot of yarn ♥</span>Moll’s Studio</div><div class="fst"><svg class="stk" style="width:46px" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-heart"/></svg><svg class="stk" style="width:46px;transform:rotate(-8deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-flower"/></svg><svg class="stk" style="width:46px;transform:rotate(10deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star"/></svg><svg class="stk" style="width:46px;transform:rotate(-6deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-cherry"/></svg><svg class="stk" style="width:46px;transform:rotate(6deg)" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-lips"/></svg><svg class="stk" style="width:42px" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-ball"/></svg></div></footer>
+<script src="html-to-image.js" defer></script>
+<script src="published-charts.js" defer></script>
+<script src="images/beanie-photo.js" defer></script>
+<script src="images/beanie-photo-2.js" defer></script>
+<script src="images/garments/tote-bag.js" defer></script>
+<script src="images/garments/beanie.js" defer></script>
+<script src="script.js" defer></script>
+</body>
+</html>
